@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CEQA Navigator — free California CEQA pathway checklist and review tool. Determine whether your project needs a Categorical Exemption, Negative Declaration, MND, or EIR. Updated to 2026 CEQA Guidelines (AEP Edition).">
+<meta name="keywords" content="CEQA checklist, CEQA pathway, CEQA navigator, California environmental review, categorical exemption, EIR, negative declaration, MND, CEQA 2026">
+<title>CEQA Navigator — California CEQA Pathway Checklist & Review Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <a class="logo" onclick="logoHome(event)" href="#" title="Back to Home">
+    <div class="logo-icon">CE</div>
+    <div class="logo-text">CEQA Navigator</div>
+  </a>
+  <div class="header-right">
+    <button class="btn-header-home" onclick="logoHome(event)"><span class="btn-label">Home</span></button>
+    <button class="btn-feedback" onclick="openFeedback()"><span class="btn-label">Share feedback</span></button>
+    <a class="hdr-btn" href="https://buymeacoffee.com" target="_blank" rel="noopener" title="Support the developer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      <span class="btn-label">Buy a Coffee</span>
+    </a>
+    <div id="auth-area">
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Sign in
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="app-container">
+  <!-- Official tool notice — only visible on section 0 (home) -->
+  <div id="official-bar" style="background:var(--navy-light);border:1px solid #C5D3EE;border-radius:8px;padding:.55rem 1.1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--navy-mid)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy-mid)" stroke-width="2" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <span>Based on the <strong>2026 CEQA Statutes &amp; Guidelines</strong> (AEP Edition, PRC §§ 21000–21189). Free to use. Assessment is not legal advice.</span>
+  </div>
+  <div id="progressWrap" class="progress-bar-wrap" style="display:none">
+    <div class="progress-steps" id="progressSteps"></div>
+  </div>
+
+  <!-- ══ HOME / INTRO ══ -->
+  <div class="section active" id="section-0">
+    <div class="intro-hero">
+      <div class="intro-eyebrow">CEQA Pathway Checklist &amp; Review Tool — 2026 AEP Edition</div>
+      <h1>CEQA Pathway Checklist<br><span style="font-size:.65em;opacity:.85;font-style:italic">Find your review pathway in under 5 minutes</span></h1>
+      <p>Answer plain-language questions and get the right California Environmental Quality Act review pathway, process timeline, and cost estimate — updated through AB 130, SB 79, SB 131, and AB 507 (2025).</p>
+      <div class="intro-features">
+        <div class="intro-feature"><div class="intro-feature-icon">📋</div><strong>Public &amp; private projects</strong><span>Different rules — we walk you through both</span></div>
+        <div class="intro-feature"><div class="intro-feature-icon">⚖️</div><strong>Two-pathway comparison</strong><span>Recommended vs. conservative, side by side</span></div>
+        <div class="intro-feature"><div class="intro-feature-icon">💰</div><strong>2026 cost estimates</strong><span>Updated CDFW fees, consultant ranges &amp; timelines</span></div>
+      </div>
+      <div class="intro-actions">
+        <button class="btn btn-gold" onclick="goToSection(1)">Start Free Assessment →</button>
+        <button class="btn" style="background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.22);font-size:13px;" onclick="openPayment()">
+          🔒 Save progress
+        </button>
+      </div>
+    </div>
+    <!-- OFFICIAL CITATION STRIP -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1.4rem;margin-bottom:1.1rem;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)">
+      <div style="width:36px;height:36px;background:var(--navy-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:1px">Official statutory source</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.5">California Public Resources Code §§ 21000–21189 and 14 CCR §§ 15000–15387, as published in the <em>2026 CEQA Statute &amp; Guidelines</em> by the Association of Environmental Professionals (AEP). This tool does not constitute legal advice.</div>
+      </div>
+      <a href="https://califaep.org" target="_blank" rel="noopener" style="font-size:11px;color:var(--navy-mid);text-decoration:none;white-space:nowrap;flex-shrink:0;font-weight:500">AEP.org ↗</a>
+    </div>
+
+        <div class="question-card" style="border-left:3px solid var(--gold)">
+      <div class="section-label">2026 Edition — Key updates</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.25rem">
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">SB 79 (2025):</strong> Transit-oriented housing exemption (½ mi from transit)</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">AB 507 (2025):</strong> Office-to-residential adaptive reuse exemption</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">AB 130/SB 131:</strong> Housing Element Implementation Exemption §21080.085</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">§21080.43–44:</strong> Agencies must accept feasible VMT mitigation from applicants</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">Koi Nation 2025:</strong> Meaningful AB 52 tribal consultation required — perfunctory contact invalidates MNDs</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">CDFW fee 2026:</strong> Updated to $3,717.25 for EIR/MND projects</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">Appendix G 2020:</strong> Energy and Wildfire added as new resource categories; checklist updated throughout</span></div>
+        <div style="font-size:13px;color:var(--text-muted);display:flex;gap:7px"><span style="color:var(--gold);flex-shrink:0;font-size:11px;margin-top:3px">●</span><span><strong style="color:var(--text)">Ministerial projects:</strong> Clarified as "CEQA does not apply" (PRC §21080(b)) — distinct from statutory exemptions</span></div>
+      </div>
+    </div>
+  <!-- ABOUT / TRUST PANEL -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:.5rem">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow)">
+      <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        Who it's for
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);line-height:1.6">City planners, county staff, environmental consultants, developers, and anyone navigating California's environmental review process.</p>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow)">
+      <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        What it does
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);line-height:1.6">Walks you through 8 plain-language questions and identifies the appropriate CEQA review pathway with cost estimates and process timelines.</p>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow)">
+      <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Its limits
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);line-height:1.6">This tool provides a starting point, not a legal determination. Always verify with a qualified CEQA practitioner and the applicable lead agency.</p>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ══ Q0: APPLICANT TYPE ══ -->
+  <div class="section" id="section-1">
+    <div class="section-header">
+      <div class="section-label">Step 1 of 8 — Applicant type</div>
+      <h2>Who is the project applicant?</h2>
+      <p>CEQA works differently depending on who's asking for approval.</p>
+    </div>
+    <div class="question-card">
+      <div class="question-hint">💡 This affects statutory time limits, fees, and who bears CEQA costs. Public agencies lead their own CEQA; private applicants pay for CEQA but the agency leads it.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q0','public',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Public agency <span class="new-tag">affects timeline &amp; fees</span></strong><span>City, county, state agency, school district, special district, or other government entity carrying out or approving its own project. Examples: city parks department, Caltrans road project, school district constructing a new building.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q0','private',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Private applicant</strong><span>Individual, company, or nonprofit applying to a public agency for permits or approvals. Examples: developer seeking a CUP, homeowner applying for a grading permit, private school seeking expansion approval.</span></div></button>
+      </div>
+      <div style="margin-top:1.25rem;padding:1rem;background:var(--bg);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);margin-bottom:.6rem">Key differences</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:var(--text-muted)">
+          <div><strong style="color:var(--purple)">Public agency</strong><br>• Prepares CEQA in-house or by contract<br>• 1-year EIR / 180-day ND statutory limit<br>• EIR contract must execute within 45 days of NOP<br>• CDFW fee generally waived for public projects<br>• Must budget CEQA costs (§21106)</div>
+          <div><strong style="color:var(--green)">Private applicant</strong><br>• Agency leads CEQA, applicant pays (§21089)<br>• Must submit complete application to start clock<br>• CDFW fee 2026: $3,717.25<br>• May contract for EIR prep if agency agrees<br>• Time limits run from complete-application date</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-outline" onclick="logoHome(null)">← Home</button>
+      <button class="btn btn-primary" id="q0-next" onclick="goToSection(2)" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- ══ Q1: PROJECT TYPE ══ -->
+  <div class="section" id="section-2">
+    <div class="section-header"><div class="section-label">Step 2 of 8 — Project type</div><h2>What are you building or improving?</h2></div>
+    <div class="question-card">
+      <div class="question-hint">💡 Think about the main purpose — what it will be used for once it's done. Two new 2025 project types appear below.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q1','residential',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Housing</strong><span>Single-family homes, apartments, condos, ADUs, townhomes, or mixed-use buildings with housing</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','residential_tod',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Transit-oriented housing <span class="new-tag">SB 79 2025</span></strong><span>5+ residential units within ½ mile of a transit stop at 30+ du/ac — may qualify for new statutory exemption</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','adaptive_reuse',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Office / commercial to residential conversion <span class="new-tag">AB 507 2025</span></strong><span>Retrofitting existing office or commercial building to residential or mixed use on sites ≤20 acres</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','commercial',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Retail, office, or hotel</strong><span>Shops, restaurants, office buildings, hotels, or entertainment venues</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','industrial',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Industrial, warehouse, or service yard</strong><span>Manufacturing, distribution, warehouses, maintenance yards, data centers</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','infrastructure',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Roads, utilities, or infrastructure</strong><span>Roads, bike lanes, sidewalks, trails, sewers, water mains, pipelines, or transit infrastructure</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','institutional',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Public or civic facility</strong><span>Parks, libraries, fire/police stations, community centers, schools, service yards, government offices</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q1','renovation',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Renovation, remodel, or tenant improvement</strong><span>Updating an existing building — no significant new construction footprint</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(1)">← Back</button><button class="btn btn-primary" id="q1-next" onclick="goToSection(3)" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q2: SIZE ══ -->
+  <div class="section" id="section-3">
+    <div class="section-header"><div class="section-label">Step 3 of 8 — Project size</div><h2>How big is the project?</h2></div>
+    <div class="question-card">
+      <div class="question-hint">💡 Use the <strong>larger</strong> of the new building area OR the demolished/removed structure. CEQA measures the whole action — if you are demolishing a 20,000 sq ft building to build a 4,000 sq ft replacement, the project scale is driven by the 20,000 sq ft demolition and the total site disturbance area. For infrastructure, use length and number of sites.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q2','small',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Small</strong><span>Housing: up to 4 units or under 5,000 sq ft &nbsp;|&nbsp; Commercial/other: new build under 5,000 sq ft with no significant demolition &nbsp;|&nbsp; Infrastructure: single block or site</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q2','medium',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Medium</strong><span>Housing: 5–50 units or 5,000–50,000 sq ft &nbsp;|&nbsp; Commercial: 5,000–50,000 sq ft new build or demolition, or site disturbance up to 2 acres &nbsp;|&nbsp; Infrastructure: neighborhood-scale. <em>Tip: if demolishing a large building to replace with a smaller one, use the demolished building's size.</em></span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q2','large',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Large</strong><span>Housing: 51–500 units &nbsp;|&nbsp; Commercial/industrial: 20,000–100,000 sq ft &nbsp;|&nbsp; Infrastructure: citywide or multi-block</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q2','major',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Very large or regional</strong><span>Housing: 500+ units &nbsp;|&nbsp; Commercial/industrial: 100,000+ sq ft &nbsp;|&nbsp; Infrastructure spanning multiple jurisdictions</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(2)">← Back</button><button class="btn btn-primary" id="q2-next" onclick="goToSection(4)" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q3: SITE ══ -->
+  <div class="section" id="section-4">
+    <div class="section-header"><div class="section-label">Step 4 of 8 — Site conditions</div><h2>What does the project site look like right now?</h2></div>
+    <div class="question-card">
+      <div class="question-hint">💡 Urban sites already paved or built on often qualify for streamlined review under §15332 (Infill) or §15183.3 (Infill Streamlining).</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q3','infill',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Already developed — paved, built on, or previously used</strong><span>Examples: existing parking lot, warehouse, service yard, former industrial site. Utilities are in place.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q3','suburban',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Partially developed — edge of existing neighborhood</strong><span>Some infrastructure exists but the area isn't fully built out. Mix of developed land and open space nearby.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q3','greenfield',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Undeveloped — open space, farmland, or natural vegetation</strong><span>Land never graded, built on, or paved. May include grasslands, orchards, or scrubland.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q3','sensitive',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Near a sensitive natural area</strong><span>Adjacent to creek, wetland, bay, hillside, or wildlife habitat — regardless of site development status.</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(3)">← Back</button><button class="btn btn-primary" id="q3-next" onclick="goToSection(5)" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q4: APPROVALS ══ -->
+  <div class="section" id="section-5">
+    <div class="section-header"><div class="section-label">Step 5 of 8 — Government approvals</div><h2>What kind of government approval does this project need?</h2></div>
+    <div class="question-card">
+      <div class="question-hint">💡 "Ministerial" = must approve if code is met. "Discretionary" = agency can weigh pros/cons and could say no.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q4','ministerial',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Building permit or grading permit only (ministerial)</strong><span>Automatic if code is met. No public hearing. Examples: standard home addition, utility trenching, interior remodel.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q4','design',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Design review or minor use permit</strong><span>Agency can require changes or conditions but can't outright deny if standards are met.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q4','cup',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Conditional use permit, variance, or site plan approval</strong><span>Agency holds a hearing and can approve, modify, or deny.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q4','gpa',this)"><div class="choice-radio"></div><div class="choice-text"><strong>General Plan Amendment, rezoning, or Specific Plan</strong><span>Legislative act requiring Council/Board action. Highest scrutiny.</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(4)">← Back</button><button class="btn btn-primary" id="q4-next" onclick="goToSection(6)" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q5: FEATURES (MULTI) ══ -->
+  <div class="section" id="section-6">
+    <div class="section-header"><div class="section-label">Step 6 of 9 — Project characteristics</div><h2>Does your project involve any of the following?</h2><p>Check everything that applies. Even one can change the level of review required. Based on CEQA Appendix G (2020 revision).</p></div>
+    <div class="question-card">
+      <div class="question-hint">💡 If you think something might apply, check it. The 2025 Koi Nation ruling confirmed that even an MND can be invalidated for inadequate tribal consultation.</div>
+      <div class="multiselect-note">Select all that apply — or "None of these" at the bottom</div>
+      <div class="check-grid">
+        <div class="q-divider">Construction activities</div>
+        <button class="check-btn" data-group="q5" data-value="demolish" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Tearing down a building or structure</strong><span>Demolishing any existing building, wall, or structure on-site</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="oldbuilding" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Building or structure is 45 years old or older</strong><span>Older structures may be historic resources requiring evaluation before alteration (§15064.5)</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="grading" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Significant digging, grading, or earthwork</strong><span>Excavating deeper than 5 feet, or moving more than 50 cubic yards of soil</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="trees" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Removing 5 or more trees</strong><span>Includes street trees, native trees, or protected species</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="piledriving" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Pile driving</strong><span>Driving structural piles into the ground for foundations</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="nightwork" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Construction outside normal daytime hours</strong><span>Work before 7 AM, after 7 PM, or on weekends</span></div></button>
+        <div class="q-divider">Site and surroundings</div>
+        <button class="check-btn" data-group="q5" data-value="bio" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Creek, wetland, or wildlife habitat within 300 feet</strong><span>Stream (even seasonal), wetland, bay, or wildlife corridor nearby</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="hazmat" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Site is listed on a hazmat database, OR contamination is suspected</strong><span>Former gas station, dry cleaner, industrial site, underground tanks — <em>or</em> you suspect contamination. Check whether the site is actively <strong>listed</strong> on <a href="#" onclick="openCortese(event)" style="color:var(--navy);font-weight:600;text-decoration:underline">the Cortese List ↗</a>, Envirostor, or GeoTracker. Note: contaminated soil alone does not block a Categorical Exemption — only an active database listing does (Gov. Code §65962.5).</span></div></button>
+        <!-- Cortese List Helper — shows when hazmat is checked -->
+        <div class="check-btn check-none" id="cortese-panel" style="display:none;grid-column:1/-1;background:var(--navy-light);border-color:var(--navy-mid);cursor:default;pointer-events:none">
+          <div style="width:100%">
+            <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.5rem;display:flex;align-items:center;gap:6px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Not sure if your site is contaminated? Check these official databases:
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;pointer-events:auto">
+              <a href="https://www.envirostor.dtsc.ca.gov/public/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--navy);font-size:12px;font-weight:500">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                EnviroStor (DTSC) ↗
+              </a>
+              <a href="https://geotracker.waterboards.ca.gov/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--navy);font-size:12px;font-weight:500">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                GeoTracker (SWRCB) ↗
+              </a>
+              <a href="https://www.dtsc.ca.gov/SiteCleanup/Cortese_List.cfm" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--navy);font-size:12px;font-weight:500">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Cortese List (DTSC) ↗
+              </a>
+              <a href="https://calepa.ca.gov/sitecleanup/corteselist/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--navy);font-size:12px;font-weight:500">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                CalEPA Cortese ↗
+              </a>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem">The <strong>Cortese List</strong> (Gov. Code §65962.5) is the official California list of hazardous sites that CEQA requires agencies to consult. If your site appears on any of these lists, check the hazmat box above.</div>
+          </div>
+        </div>
+        <button class="check-btn" data-group="q5" data-value="flood" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Located in a flood zone</strong><span>FEMA-mapped flood area or site regularly floods</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="slopes" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Steep hillside location</strong><span>Slopes greater than 10–15% grade on or adjacent to site</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="rail" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Within 1,000 feet of a freeway or active rail line</strong><span>Freeway, light rail, Caltrain, or freight rail — noise and air quality implications</span></div></button>
+        <div class="q-divider">Energy, wildfire &amp; geology</div>
+        <button class="check-btn" data-group="q5" data-value="energy" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Significant energy use or conflict with renewable energy goals <span class="new-tag">Appendix G 2020</span></strong><span>Project would consume energy wastefully or inefficiently during construction or operation, or conflict with a state or local renewable energy or energy efficiency plan</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="wildfire" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Located in or near a wildfire hazard zone <span class="new-tag">Appendix G 2020</span></strong><span>Site is in a State Responsibility Area (SRA), Very High Fire Hazard Severity Zone (VHFHSZ), or area where wildfire risk is elevated. Triggers analysis of evacuation routes, fire risk, and post-fire flooding.</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="paleo" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Potential paleontological resources</strong><span>Site is in a geologic formation known to contain fossils, or significant grading will occur in undisturbed geological deposits. Paleontological resource evaluation may be required (now under Geology/Soils in the 2020 Appendix G).</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="airport" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Within 2 miles of an airport or within an Airport Land Use Plan area</strong><span>Project is within an airport land use plan boundary, or within 2 miles of a public airport. Triggers safety hazard and noise analysis under Appendix G VIII(e) and XII(c).</span></div></button>
+        <div class="q-divider">Community and historic resources</div>
+        <button class="check-btn" data-group="q5" data-value="cultural" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Known historic building, archaeological site, or tribal cultural resources area</strong><span>On City/County Historic Resources Inventory, near a known archaeological site, former railroad corridor, or in an area where tribal cultural resources may be present (AB 52 consultation required)</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="hcp" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Within a Habitat Conservation Plan (HCP) or Natural Community Conservation Plan (NCCP) area</strong><span>Site is within a regional HCP/NCCP permit area — examples include the Santa Clara Valley Habitat Plan (SCVHP), Western Riverside MSHCP, or Bay Checkerboard. These require payment of impact fees before grading or building permits regardless of CEQA pathway.</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="sensitive_receptor" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Homes, schools, daycares, or care facilities within 1,000 feet</strong><span>Schools within ¼ mile require consultation under §21151.4</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="traffic" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Project will generate significant new vehicle trips or queuing (VMT)</strong><span>Post-SB 743 VMT analysis required. §21080.43–44 (2025): agencies must accept feasible VMT mitigation. Includes drive-through restaurants, gas stations, warehouses, and other high-trip generators.</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="drivethrough" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Drive-through lanes, fueling stations, or idling vehicle queues <span class="new-tag">BAAQMD</span></strong><span>Drive-through restaurants, gas stations, car washes, or any use with extended vehicle idling near residences, schools, or other sensitive receptors — triggers a BAAQMD Air Quality Study and Health Risk Assessment (HRA) in the Bay Area</span></div></button>
+        <button class="check-btn" data-group="q5" data-value="federal" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>Federal funding or permits involved</strong><span>Federal grant or permit (Army Corps 404, etc.) — may also trigger NEPA</span></div></button>
+        <div class="q-divider"></div>
+        <button class="check-btn check-none" data-group="q5" data-value="none" data-exclusive="true" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text"><strong>None of these apply to my project</strong><span>No demolition, no sensitive resources, no hazards, no unusual construction</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(5)">← Back</button><button class="btn btn-primary" id="q5-next" onclick="goToSection('6b')" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q6b: LAND OWNERSHIP & ACQUISITION ══ -->
+  <div class="section" id="section-6b">
+    <div class="section-header">
+      <div class="section-label">Step 7 of 9 — Land ownership</div>
+      <h2>Who owns the land the project will use?</h2>
+      <p>Land acquisition can significantly affect CEQA scope, timeline, and cost — especially for public agency projects.</p>
+    </div>
+    <div class="question-card">
+      <div class="question-hint">💡 If any land must be acquired through eminent domain or voluntary purchase, additional CEQA analysis is typically required — including relocation impacts and displacement effects (§15064(h)). For linear projects like roads or pipelines, partial acquisitions are common and still require analysis.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q6b','public_owned',this)">
+          <div class="choice-radio"></div>
+          <div class="choice-text">
+            <strong>All land is already publicly owned</strong>
+            <span>The entire project footprint is on land owned by the agency or a public entity. No acquisition needed. Examples: city-owned park, existing right-of-way, agency facility.</span>
+          </div>
+        </button>
+        <button class="choice-btn" onclick="selectChoice('q6b','some_acquisition',this)">
+          <div class="choice-radio"></div>
+          <div class="choice-text">
+            <strong>Some land needs to be acquired <span class="new-tag">affects analysis</span></strong>
+            <span>Part of the project footprint is privately owned. Acquisition will be needed — through purchase, easement, or eminent domain. Triggers analysis of displacement, relocation, and consistency with the Surplus Lands Act.</span>
+          </div>
+        </button>
+        <button class="choice-btn" onclick="selectChoice('q6b','all_acquisition',this)">
+          <div class="choice-radio"></div>
+          <div class="choice-text">
+            <strong>All land must be acquired <span class="new-tag">affects analysis</span></strong>
+            <span>The entire project site is privately or separately owned. Full acquisition program required before construction. May require relocation assistance under the Uniform Relocation Act and analysis under §15064(h).</span>
+          </div>
+        </button>
+        <button class="choice-btn" onclick="selectChoice('q6b','private_fee',this)">
+          <div class="choice-radio"></div>
+          <div class="choice-text">
+            <strong>Private applicant — land is privately owned by applicant</strong>
+            <span>The applicant owns or controls the project site. No public acquisition involved. Standard CEQA review applies without additional acquisition analysis.</span>
+          </div>
+        </button>
+        <button class="choice-btn" onclick="selectChoice('q6b','unknown',this)">
+          <div class="choice-radio"></div>
+          <div class="choice-text">
+            <strong>Unknown / to be determined</strong>
+            <span>Land ownership and acquisition needs have not yet been determined. Treat as "some acquisition needed" for conservatism.</span>
+          </div>
+        </button>
+      </div>
+      <!-- Acquisition impact note — shown after selection -->
+      <div id="acquisition-note" style="display:none;margin-top:1rem;padding:.8rem 1rem;border-radius:8px;font-size:13px;line-height:1.6"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-outline" onclick="goToSection(6)">← Back</button>
+      <button class="btn btn-primary" id="q6b-next" onclick="goToSection(7)" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- ══ Q6: PRIOR CEQA ══ -->
+  <div class="section" id="section-7">
+    <div class="section-header"><div class="section-label">Step 7 of 8 — Prior environmental review</div><h2>Has this project area already gone through CEQA review?</h2><p>Prior CEQA work can significantly speed up your review.</p></div>
+    <div class="question-card">
+      <div class="question-hint">💡 Even an MND or Initial Study from several years ago may allow faster review — especially if conditions haven't changed significantly.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q6','none',this)"><div class="choice-radio"></div><div class="choice-text"><strong>No — no prior CEQA coverage</strong><span>No existing document covers this project type or location</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q6','program',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Yes — a General Plan EIR or Program EIR covers this area</strong><span>City's General Plan EIR or program-level document analyzed this project type here</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q6','specific',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Yes — a Specific Plan EIR or project-level EIR covers this exact project</strong><span>A certified EIR already analyzed this specific site or project type in detail</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q6','prior_mnd',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Yes — a prior MND was adopted (even from years ago) <span class="new-tag">updated</span></strong><span>An MND was previously certified, even years ago. A Subsequent MND or Addendum may apply under §15162 if conditions haven't significantly changed.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q6','prior_is',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Yes — a prior Initial Study (IS) was completed but not finalized <span class="new-tag">updated</span></strong><span>An IS was prepared but the project didn't proceed. May be usable with updates if project and conditions are substantially similar.</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection('6b')">← Back</button><button class="btn btn-primary" id="q6-next" onclick="goToSection(8)" disabled>Continue →</button></div>
+  </div>
+
+  <!-- ══ Q7: RISK ══ -->
+  <div class="section" id="section-8">
+    <div class="section-header"><div class="section-label">Step 9 of 9 — Risk &amp; timeline</div><h2>How important is speed versus legal protection?</h2></div>
+    <div class="question-card">
+      <div class="question-hint">💡 Thorough review takes longer but is much harder to challenge. The 2025 Koi Nation ruling is a reminder: even MNDs face invalidation if consultation requirements aren't met rigorously.</div>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectChoice('q7','flexible',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Legal protection is the priority</strong><span>Invest more time upfront so the project can withstand any legal challenge. This project may attract opposition.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q7','moderate',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Balanced — right process, avoid unnecessary delay</strong><span>Use the appropriate pathway without being overly cautious or rushing.</span></div></button>
+        <button class="choice-btn" onclick="selectChoice('q7','urgent',this)"><div class="choice-radio"></div><div class="choice-text"><strong>Speed is critical</strong><span>Funding deadline, construction window, or board deadline. Need fastest legally defensible path.</span></div></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn btn-outline" onclick="goToSection(7)">← Back</button><button class="btn btn-gold" id="q7-next" onclick="calculateResults()" disabled>Generate CEQA Report →</button></div>
+  </div>
+
+  <!-- ══ RESULTS ══ -->
+  <div class="section" id="section-9">
+    <div class="print-header">CEQA Navigator 2026 — Generated: <span id="printDate"></span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:1.1rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)">
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);line-height:1.2">Your CEQA Determination</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:1px">2026 CEQA Statutes &amp; Guidelines — AEP Edition</div>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-green" onclick="downloadPDF()" style="font-size:13px;padding:8px 14px">⬇ PDF</button>
+        <button class="btn btn-outline" onclick="openSaveGate()" id="saveBtn" style="font-size:13px;padding:8px 14px">🔒 Save</button>
+      </div>
+    </div>
+
+    <div id="summary-bar" class="summary-bar"></div>
+
+    <!-- PRIMARY RECOMMENDATION -->
+    <div class="result-primary" id="primary-result"></div>
+
+    <!-- CONSERVATIVE OPTION (collapsed, clickable to expand) -->
+    <div class="result-conservative" id="conservative-result">
+      <div class="result-con-header" onclick="toggleConservative()">
+        <div class="result-con-left">
+          <div class="result-con-badge">Conservative option</div>
+          <div>
+            <div class="result-con-title" id="con-title-preview">Click to see the more conservative pathway</div>
+            <div class="result-con-abbr" id="con-abbr-preview">Higher legal protection — longer timeline and cost</div>
+          </div>
+        </div>
+        <div class="result-con-chevron">▼</div>
+      </div>
+      <div class="result-con-body" id="con-body"></div>
+    </div>
+
+    <!-- COST + FLOW side by side -->
+    <div class="compare-grid">
+      <div class="result-card" id="cost-result"></div>
+      <div class="result-card" id="summary-table"></div>
+    </div>
+
+    <!-- FLOW CHART with tab to switch rec/conservative -->
+    <div class="flow-container">
+      <div class="flow-tabs">
+        <button class="flow-tab active" id="flowTabRec" onclick="switchFlow('rec')">Recommended process steps</button>
+        <button class="flow-tab" id="flowTabCon" onclick="switchFlow('con')">Conservative process steps</button>
+      </div>
+      <div id="flow-content"></div>
+    </div>
+
+    <!-- REQUIRED DISCLAIMER -->
+    <div style="background:#fff8f0;border:1.5px solid #e0a060;border-radius:8px;padding:1rem 1.25rem;margin-top:1rem;display:flex;gap:10px;align-items:flex-start">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c07030" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#8a4010;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px">Important Disclaimer</div>
+        <div style="font-size:13px;color:#5a3010;line-height:1.65">This tool provides general guidance only and does not replace review by a qualified CEQA professional, lead agency, or legal counsel. CEQA analysis is highly project-specific and fact-dependent. Results generated by this tool are a starting point for discussion — not a legal determination, final agency decision, or substitute for a certified environmental document. Always consult a licensed environmental professional and the applicable lead agency before making project decisions. Statutory citations reflect the 2026 AEP Edition (PRC §§ 21000–21189; 14 CCR §§ 15000–15387) as amended through January 1, 2026.</div>
+      </div>
+    </div>
+    <div class="disclaimer-agency">⚠️ <strong>Agency review time disclaimer:</strong> Timelines shown reflect statutory minimum review periods only. Actual processing time — including staff review, document preparation, public notice, and approval hearing scheduling — varies significantly by jurisdiction and workload. Many agencies carry multi-month backlogs. Contact the lead agency early to understand current review timelines. Time limits shown do not include agency review time for submitted files and applications.</div>
+
+    <!-- END-OF-REPORT FEEDBACK PROMPT -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.75rem;margin-top:1.5rem;text-align:center;box-shadow:var(--shadow)">
+      <div style="font-family:'DM Serif Display',serif;font-size:19px;color:var(--navy);margin-bottom:.4rem">Was this result helpful?</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.65;max-width:480px;margin:0 auto .5rem">CEQA Navigator is built and maintained by one person. Your feedback — even just a star rating — directly shapes what gets improved next. It's anonymous, takes under a minute, and genuinely makes a difference.</p>
+      <!-- Inline quick-rate stars -->
+      <div id="inline-stars" style="display:flex;justify-content:center;gap:8px;margin:.85rem 0">
+        <button onclick="quickRate(1)" class="inline-star" title="Not helpful" style="font-size:28px;background:none;border:none;cursor:pointer;color:#DDD;transition:color .15s;line-height:1">★</button>
+        <button onclick="quickRate(2)" class="inline-star" title="Slightly helpful" style="font-size:28px;background:none;border:none;cursor:pointer;color:#DDD;transition:color .15s;line-height:1">★</button>
+        <button onclick="quickRate(3)" class="inline-star" title="Somewhat helpful" style="font-size:28px;background:none;border:none;cursor:pointer;color:#DDD;transition:color .15s;line-height:1">★</button>
+        <button onclick="quickRate(4)" class="inline-star" title="Very helpful" style="font-size:28px;background:none;border:none;cursor:pointer;color:#DDD;transition:color .15s;line-height:1">★</button>
+        <button onclick="quickRate(5)" class="inline-star" title="Extremely helpful" style="font-size:28px;background:none;border:none;cursor:pointer;color:#DDD;transition:color .15s;line-height:1">★</button>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-bottom:1rem">Tap a star to rate, or share more detail below</p>
+      <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openFeedback()" style="font-size:13px">Leave detailed feedback →</button>
+        <button class="btn btn-outline" onclick="downloadPDF()" style="font-size:13px">⬇ Download PDF</button>
+        <button class="btn btn-outline" onclick="restartTool()" style="font-size:13px">← Start Over</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /app-container -->
+
+<!-- ══ SITE FOOTER ══ -->
+<footer style="background:var(--navy);color:rgba(255,255,255,.7);padding:3rem 1.5rem 1.5rem;margin-top:3rem">
+  <div style="max-width:860px;margin:0 auto">
+
+    <!-- Top grid -->
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2.5rem">
+
+      <!-- About column -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:.8rem">
+          <div style="width:28px;height:28px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--navy);flex-shrink:0">CE</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#fff">CEQA Navigator</div>
+        </div>
+        <p style="font-size:12px;line-height:1.75;margin-bottom:.75rem">
+          A plain-language CEQA pathway determination tool for California public agencies and private applicants. Guidance is based on the 2026 CEQA Statutes &amp; Guidelines (AEP Edition, as amended through January 1, 2026).
+        </p>
+        <div style="font-size:11px;opacity:.45;line-height:1.6">
+          Based on California Public Resources Code §§ 21000–21189 and 14 CCR §§ 15000–15387.<br>
+          Source: Association of Environmental Professionals (AEP), 2026 Edition.
+        </div>
+      </div>
+
+      <!-- About column -->
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.4);margin-bottom:.9rem">About</div>
+        <div style="display:flex;flex-direction:column;gap:.55rem">
+          <button onclick="openInfoModal('about')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">About This Tool</button>
+          <button onclick="openInfoModal('how')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">How It Works</button>
+          <a href="https://califaep.org" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);font-size:12px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">AEP.org ↗</a>
+          <a href="https://opr.ca.gov/ceqa/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);font-size:12px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">California OPR ↗</a>
+        </div>
+      </div>
+
+      <!-- Legal column -->
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.4);margin-bottom:.9rem">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:.55rem">
+          <button onclick="openInfoModal('disclaimer')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Disclaimer</button>
+          <button onclick="openInfoModal('privacy')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Privacy Policy</button>
+          <button onclick="openInfoModal('terms')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Terms of Use</button>
+          <button onclick="openInfoModal('refund')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Refund Policy</button>
+        </div>
+      </div>
+
+      <!-- Contact column -->
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.4);margin-bottom:.9rem">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:.55rem">
+          <button onclick="openInfoModal('contact')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Contact Us</button>
+          <span style="font-size:12px;opacity:.6">support@ceqanavigator.com</span>
+          <span style="font-size:12px;opacity:.6">California, USA</span>
+          <a href="https://buymeacoffee.com" target="_blank" rel="noopener" style="color:var(--gold);font-size:12px;text-decoration:none;margin-top:.15rem" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Support this tool ↗</a>
+        </div>
+      </div>
+
+    </div><!-- /top grid -->
+
+    <!-- Bottom bar -->
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:11px;opacity:.4;line-height:1.5">
+        © 2026 CEQA Navigator. Not affiliated with the State of California, OPR, DTSC, or the Association of Environmental Professionals.<br>
+        This tool provides general guidance only and does not constitute legal advice.
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;opacity:.45">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> SSL Secured
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;opacity:.45">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> PCI Compliant
+        </div>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ══ INFO PAGES MODAL (Disclaimer / Privacy / Terms / Contact / About) ══ -->
+<div class="modal-overlay" id="info-modal" style="display:none" onclick="if(event.target===this)closeInfoModal()">
+  <div class="modal-box" style="max-width:640px;max-height:88vh;display:flex;flex-direction:column">
+    <div class="modal-header" style="flex-shrink:0;padding-bottom:.75rem">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="info-modal-title" style="font-size:18px"></h3>
+        <button onclick="closeInfoModal()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--text-muted);line-height:1;padding:2px 6px">×</button>
+      </div>
+    </div>
+    <div id="info-modal-body" class="modal-body" style="overflow-y:auto;flex:1;font-size:13px;color:var(--text-muted);line-height:1.75"></div>
+    <div class="modal-footer" style="flex-shrink:0;justify-content:flex-end">
+      <button class="btn btn-primary" onclick="closeInfoModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MODALS ══════════════ -->
+
+<!-- UNSAVED PROGRESS GUARD -->
+<div class="modal-overlay" id="guard-modal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="guard-icon">⚠️</div>
+      <h3>You have unsaved progress</h3>
+      <p>If you leave now, your answers will be lost and you'll need to start over.</p>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--amber-light);border:1px solid #e0c070;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:var(--amber);margin-bottom:1rem">
+        💡 <strong>Save first:</strong> Click "Save &amp; Continue" to store your progress. You'll need a free account to save.
+      </div>
+      <p style="font-size:13px;color:var(--text-muted)">You're on step <strong id="guard-step-label"></strong>. Your project type, site information, and answers will be cleared if you navigate away.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="guardStay()">Stay on page</button>
+      <button class="btn btn-outline" onclick="openSaveGate();closeGuard()">🔒 Save first</button>
+      <button class="btn btn-danger" onclick="guardProceed()">Leave anyway</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT / SAVE GATE -->
+<div class="modal-overlay" id="payment-modal" style="display:none">
+  <div class="modal-box" style="max-width:540px">
+
+    <div class="modal-header">
+      <h3>Save Your Progress</h3>
+      <p>Free to assess. A subscription unlocks saved sessions, edit history, and PDF export.</p>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- PLAN CARDS -->
+      <div class="plan-cards">
+
+        <!-- Monthly -->
+        <div class="plan-card" id="plan-monthly" onclick="selectPlan('monthly')">
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price-row">
+            <div class="plan-price">$4.99</div>
+            <div class="plan-price-per">/ mo</div>
+          </div>
+          <ul class="plan-features">
+            <li>Save up to 5 assessments</li>
+            <li>Revisit &amp; edit any answer</li>
+            <li>PDF export</li>
+            <li>Cancel anytime</li>
+          </ul>
+        </div>
+
+        <!-- Annual — best value -->
+        <div class="plan-card selected" id="plan-annual" onclick="selectPlan('annual')">
+          <div class="plan-badge-pop">Save 42%</div>
+          <div class="plan-name">Annual</div>
+          <div class="plan-price-row">
+            <div class="plan-price">$35</div>
+            <div class="plan-price-per">/ yr</div>
+          </div>
+          <div class="plan-original">Regular price $59.99/yr — you save $24.99</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:.4rem">≈ $2.92 / month</div>
+          <ul class="plan-features">
+            <li>Unlimited saved assessments</li>
+            <li>Revisit &amp; edit any answer</li>
+            <li>PDF export</li>
+            <li>Priority email support</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- PAYMENT FORM -->
+      <div class="payment-divider"></div>
+      <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.4px">Payment details</div>
+
+      <input class="payment-input" type="email" id="pay-email" placeholder="Email address" autocomplete="email">
+      <div style="position:relative;margin-bottom:8px">
+        <input class="payment-input" style="margin:0;padding-right:38px" type="text" id="pay-card" placeholder="Card number" maxlength="19" oninput="formatCard(this)" autocomplete="cc-number">
+        <span style="position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text-muted)" id="card-brand">
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><rect width="22" height="16" rx="2" fill="#E8EDF8"/><rect x="0" y="5" width="22" height="4" fill="#C8C8D0"/></svg>
+        </span>
+      </div>
+      <div class="payment-row">
+        <input class="payment-input" style="margin:0" type="text" id="pay-expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)" autocomplete="cc-exp">
+        <input class="payment-input" style="margin:0" type="text" id="pay-cvv" placeholder="CVV" maxlength="4" autocomplete="cc-csc">
+      </div>
+
+      <!-- TRUST SIGNALS -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          256-bit SSL
+        </div>
+        <div class="trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          PCI DSS Level 1
+        </div>
+        <div class="trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Cancel anytime
+        </div>
+      </div>
+      <div class="stripe-line">
+        <svg width="38" height="15" viewBox="0 0 38 15"><rect width="38" height="15" rx="2" fill="#635BFF"/><text x="5" y="11" font-family="sans-serif" font-size="8.5" fill="white" font-weight="600">stripe</text></svg>
+        Card data handled by Stripe. We never see your card number.
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <div class="modal-footer" style="justify-content:space-between;align-items:center">
+      <button class="btn btn-outline" onclick="closePayment()">Cancel</button>
+      <button class="btn btn-primary" onclick="processPayment()" id="pay-submit">
+        Subscribe — <span id="pay-amount">$35.00 / year</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="feedback-modal" style="display:none" onclick="if(event.target===this)closeFeedback()">
+  <div class="modal-box" style="max-width:500px">
+    <div class="modal-header" style="padding-bottom:.65rem">
+      <h3 style="font-size:20px">You just helped make this better</h3>
+      <p style="margin-top:.3rem;line-height:1.6">This tool is built and maintained by one person who genuinely cares about making CEQA accessible to everyone — not just large firms with big budgets. Your feedback, whether glowing or critical, is read personally and shapes every future update. It takes less than 60 seconds and means a lot.</p>
+    </div>
+    <div class="modal-body" id="feedback-body">
+      <!-- Star rating -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">How useful was this result?</div>
+      <div class="feedback-stars" id="star-row" style="margin-bottom:1.1rem">
+        <button class="star-btn" data-v="1" onclick="rateStar(1)" title="Not useful">★</button>
+        <button class="star-btn" data-v="2" onclick="rateStar(2)" title="Slightly useful">★</button>
+        <button class="star-btn" data-v="3" onclick="rateStar(3)" title="Somewhat useful">★</button>
+        <button class="star-btn" data-v="4" onclick="rateStar(4)" title="Very useful">★</button>
+        <button class="star-btn" data-v="5" onclick="rateStar(5)" title="Extremely useful">★</button>
+      </div>
+      <!-- Category chips -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">What's on your mind? <span style="font-weight:400;text-transform:none;letter-spacing:0">(pick any that apply)</span></div>
+      <div class="feedback-cat" id="feedback-cats" style="margin-bottom:1rem">
+        <button class="cat-btn" onclick="toggleCat(this,'accurate')">Result looks accurate</button>
+        <button class="cat-btn" onclick="toggleCat(this,'inaccurate')">Something seems off</button>
+        <button class="cat-btn" onclick="toggleCat(this,'missing')">Missing a question or feature</button>
+        <button class="cat-btn" onclick="toggleCat(this,'confusing')">A question was confusing</button>
+        <button class="cat-btn" onclick="toggleCat(this,'bug')">Found a bug</button>
+        <button class="cat-btn" onclick="toggleCat(this,'great')">This saved me time</button>
+      </div>
+      <!-- Text area -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">Anything else? <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional but really appreciated)</span></div>
+      <textarea class="feedback-textarea" id="feedback-text" placeholder="Was the pathway recommendation right for your project? Was a question unclear? Did we miss something important? Even a few words help enormously — we read every one." style="min-height:80px"></textarea>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem;line-height:1.6">
+        Completely anonymous — no account or personal information required. Sent directly to the developer. Thank you for taking the time.
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;align-items:center">
+      <button class="btn btn-outline" onclick="closeFeedback()" style="font-size:13px">Maybe later</button>
+      <button class="btn btn-primary" onclick="submitFeedback()" style="font-size:13px">Send feedback →</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
