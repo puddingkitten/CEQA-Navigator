@@ -21,16 +21,8 @@
   <div class="header-right">
     <button class="btn-header-home" onclick="logoHome(event)"><span class="btn-label">Home</span></button>
     <button class="btn-feedback" onclick="openFeedback()"><span class="btn-label">Share feedback</span></button>
-    <a class="hdr-btn" href="https://buymeacoffee.com" target="_blank" rel="noopener" title="Support the developer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-      <span class="btn-label">Buy a Coffee</span>
-    </a>
-    <div id="auth-area">
-      <button class="google-btn" onclick="signInWithGoogle()">
-        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        Sign in
-      </button>
-    </div>
+
+
   </div>
 </header>
 
@@ -57,9 +49,6 @@
       </div>
       <div class="intro-actions">
         <button class="btn btn-gold" onclick="goToSection(1)">Start Free Assessment →</button>
-        <button class="btn" style="background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.22);font-size:13px;" onclick="openPayment()">
-          🔒 Save progress
-        </button>
       </div>
     </div>
     <!-- OFFICIAL CITATION STRIP -->
@@ -367,7 +356,6 @@
       </div>
       <div style="display:flex;gap:7px;flex-wrap:wrap">
         <button class="btn btn-green" onclick="downloadPDF()" style="font-size:13px;padding:8px 14px">⬇ PDF</button>
-        <button class="btn btn-outline" onclick="openSaveGate()" id="saveBtn" style="font-size:13px;padding:8px 14px">🔒 Save</button>
       </div>
     </div>
 
@@ -489,7 +477,7 @@
           <button onclick="openInfoModal('contact')" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:12px;cursor:pointer;text-align:left;padding:0;font-family:inherit;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Contact Us</button>
           <span style="font-size:12px;opacity:.6">support@ceqanavigator.com</span>
           <span style="font-size:12px;opacity:.6">California, USA</span>
-          <a href="https://buymeacoffee.com" target="_blank" rel="noopener" style="color:var(--gold);font-size:12px;text-decoration:none;margin-top:.15rem" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Support this tool ↗</a>
+
         </div>
       </div>
 
@@ -532,133 +520,24 @@
 
 <!-- ══════════════ MODALS ══════════════ -->
 
-<!-- UNSAVED PROGRESS GUARD -->
-<div class="modal-overlay" id="guard-modal" style="display:none">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div class="guard-icon">⚠️</div>
-      <h3>You have unsaved progress</h3>
-      <p>If you leave now, your answers will be lost and you'll need to start over.</p>
-    </div>
-    <div class="modal-body">
-      <div style="background:var(--amber-light);border:1px solid #e0c070;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:var(--amber);margin-bottom:1rem">
-        💡 <strong>Save first:</strong> Click "Save &amp; Continue" to store your progress. You'll need a free account to save.
-      </div>
-      <p style="font-size:13px;color:var(--text-muted)">You're on step <strong id="guard-step-label"></strong>. Your project type, site information, and answers will be cleared if you navigate away.</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-outline" onclick="guardStay()">Stay on page</button>
-      <button class="btn btn-outline" onclick="openSaveGate();closeGuard()">🔒 Save first</button>
-      <button class="btn btn-danger" onclick="guardProceed()">Leave anyway</button>
-    </div>
-  </div>
-</div>
-
-<!-- PAYMENT / SAVE GATE -->
-<div class="modal-overlay" id="payment-modal" style="display:none">
-  <div class="modal-box" style="max-width:540px">
-
-    <div class="modal-header">
-      <h3>Save Your Progress</h3>
-      <p>Free to assess. A subscription unlocks saved sessions, edit history, and PDF export.</p>
-    </div>
-
-    <div class="modal-body">
-
-      <!-- PLAN CARDS -->
-      <div class="plan-cards">
-
-        <!-- Monthly -->
-        <div class="plan-card" id="plan-monthly" onclick="selectPlan('monthly')">
-          <div class="plan-name">Monthly</div>
-          <div class="plan-price-row">
-            <div class="plan-price">$4.99</div>
-            <div class="plan-price-per">/ mo</div>
-          </div>
-          <ul class="plan-features">
-            <li>Save up to 5 assessments</li>
-            <li>Revisit &amp; edit any answer</li>
-            <li>PDF export</li>
-            <li>Cancel anytime</li>
-          </ul>
-        </div>
-
-        <!-- Annual — best value -->
-        <div class="plan-card selected" id="plan-annual" onclick="selectPlan('annual')">
-          <div class="plan-badge-pop">Save 42%</div>
-          <div class="plan-name">Annual</div>
-          <div class="plan-price-row">
-            <div class="plan-price">$35</div>
-            <div class="plan-price-per">/ yr</div>
-          </div>
-          <div class="plan-original">Regular price $59.99/yr — you save $24.99</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:.4rem">≈ $2.92 / month</div>
-          <ul class="plan-features">
-            <li>Unlimited saved assessments</li>
-            <li>Revisit &amp; edit any answer</li>
-            <li>PDF export</li>
-            <li>Priority email support</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- PAYMENT FORM -->
-      <div class="payment-divider"></div>
-      <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.4px">Payment details</div>
-
-      <input class="payment-input" type="email" id="pay-email" placeholder="Email address" autocomplete="email">
-      <div style="position:relative;margin-bottom:8px">
-        <input class="payment-input" style="margin:0;padding-right:38px" type="text" id="pay-card" placeholder="Card number" maxlength="19" oninput="formatCard(this)" autocomplete="cc-number">
-        <span style="position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text-muted)" id="card-brand">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><rect width="22" height="16" rx="2" fill="#E8EDF8"/><rect x="0" y="5" width="22" height="4" fill="#C8C8D0"/></svg>
-        </span>
-      </div>
-      <div class="payment-row">
-        <input class="payment-input" style="margin:0" type="text" id="pay-expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)" autocomplete="cc-exp">
-        <input class="payment-input" style="margin:0" type="text" id="pay-cvv" placeholder="CVV" maxlength="4" autocomplete="cc-csc">
-      </div>
-
-      <!-- TRUST SIGNALS -->
-      <div class="trust-row">
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          256-bit SSL
-        </div>
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          PCI DSS Level 1
-        </div>
-        <div class="trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Cancel anytime
-        </div>
-      </div>
-      <div class="stripe-line">
-        <svg width="38" height="15" viewBox="0 0 38 15"><rect width="38" height="15" rx="2" fill="#635BFF"/><text x="5" y="11" font-family="sans-serif" font-size="8.5" fill="white" font-weight="600">stripe</text></svg>
-        Card data handled by Stripe. We never see your card number.
-      </div>
-
-    </div><!-- /modal-body -->
-
-    <div class="modal-footer" style="justify-content:space-between;align-items:center">
-      <button class="btn btn-outline" onclick="closePayment()">Cancel</button>
-      <button class="btn btn-primary" onclick="processPayment()" id="pay-submit">
-        Subscribe — <span id="pay-amount">$35.00 / year</span>
-      </button>
-    </div>
-
-  </div>
-</div>
-
 <!-- FEEDBACK MODAL -->
 <div class="modal-overlay" id="feedback-modal" style="display:none" onclick="if(event.target===this)closeFeedback()">
   <div class="modal-box" style="max-width:500px">
+
+    <!-- Header -->
     <div class="modal-header" style="padding-bottom:.65rem">
-      <h3 style="font-size:20px">You just helped make this better</h3>
-      <p style="margin-top:.3rem;line-height:1.6">This tool is built and maintained by one person who genuinely cares about making CEQA accessible to everyone — not just large firms with big budgets. Your feedback, whether glowing or critical, is read personally and shapes every future update. It takes less than 60 seconds and means a lot.</p>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <h3 style="font-size:19px;margin-bottom:.25rem">You just helped make this better</h3>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6">This tool is built and maintained by one person. Your feedback — good or critical — is read personally and shapes every future update.</p>
+        </div>
+        <button onclick="closeFeedback()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--text-muted);line-height:1;padding:2px 6px;margin-left:8px;flex-shrink:0">×</button>
+      </div>
     </div>
-    <div class="modal-body" id="feedback-body">
+
+    <!-- Body -->
+    <div id="feedback-body" class="modal-body">
+
       <!-- Star rating -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">How useful was this result?</div>
       <div class="feedback-stars" id="star-row" style="margin-bottom:1.1rem">
@@ -668,30 +547,66 @@
         <button class="star-btn" data-v="4" onclick="rateStar(4)" title="Very useful">★</button>
         <button class="star-btn" data-v="5" onclick="rateStar(5)" title="Extremely useful">★</button>
       </div>
+
       <!-- Category chips -->
-      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">What's on your mind? <span style="font-weight:400;text-transform:none;letter-spacing:0">(pick any that apply)</span></div>
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">What's on your mind? <span style="font-weight:400;text-transform:none;letter-spacing:0">(pick any)</span></div>
       <div class="feedback-cat" id="feedback-cats" style="margin-bottom:1rem">
         <button class="cat-btn" onclick="toggleCat(this,'accurate')">Result looks accurate</button>
         <button class="cat-btn" onclick="toggleCat(this,'inaccurate')">Something seems off</button>
-        <button class="cat-btn" onclick="toggleCat(this,'missing')">Missing a question or feature</button>
+        <button class="cat-btn" onclick="toggleCat(this,'missing')">Missing a feature</button>
         <button class="cat-btn" onclick="toggleCat(this,'confusing')">A question was confusing</button>
         <button class="cat-btn" onclick="toggleCat(this,'bug')">Found a bug</button>
         <button class="cat-btn" onclick="toggleCat(this,'great')">This saved me time</button>
       </div>
-      <!-- Text area -->
-      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">Anything else? <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional but really appreciated)</span></div>
-      <textarea class="feedback-textarea" id="feedback-text" placeholder="Was the pathway recommendation right for your project? Was a question unclear? Did we miss something important? Even a few words help enormously — we read every one." style="min-height:80px"></textarea>
+
+      <!-- Name -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Your name <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></div>
+      <input id="feedback-name" type="text" placeholder="e.g. Jane Smith" autocomplete="name"
+        style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:14px;outline:none;margin-bottom:.75rem;transition:border-color .18s;color:var(--text);background:#fff"
+        onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'">
+
+      <!-- Email -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Your email <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional — only if you'd like a reply)</span></div>
+      <input id="feedback-email" type="email" placeholder="you@example.com" autocomplete="email"
+        style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:14px;outline:none;margin-bottom:.75rem;transition:border-color .18s;color:var(--text);background:#fff"
+        onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'">
+
+      <!-- Message -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Comments <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional but really appreciated)</span></div>
+      <textarea id="feedback-text" class="feedback-textarea"
+        placeholder="Was the pathway recommendation right for your project? Was a question unclear? Did we miss something? Even a few words help enormously — we read every one."
+        style="min-height:80px"></textarea>
+
       <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem;line-height:1.6">
-        Completely anonymous — no account or personal information required. Sent directly to the developer. Thank you for taking the time.
+        Sent directly to the developer. Name and email are optional — you can submit completely anonymously.
       </div>
-    </div>
+
+    </div><!-- /feedback-body -->
+
+    <!-- Footer -->
     <div class="modal-footer" style="justify-content:space-between;align-items:center">
       <button class="btn btn-outline" onclick="closeFeedback()" style="font-size:13px">Maybe later</button>
       <button class="btn btn-primary" onclick="submitFeedback()" style="font-size:13px">Send feedback →</button>
     </div>
+
   </div>
 </div>
 
-<script src="script.js"></script>
-</body>
-</html>
+<!-- UNSAVED PROGRESS GUARD -->
+<div class="modal-overlay" id="guard-modal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="guard-icon">⚠️</div>
+      <h3>You have unsaved progress</h3>
+      <p>If you leave now, your answers will be lost and you'll need to start over.</p>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text-muted)">You're on step <strong id="guard-step-label"></strong>. Your project type, site information, and answers will be cleared if you navigate away.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="guardStay()">Stay on page</button>
+      <button class="btn btn-danger" onclick="guardProceed()">Leave anyway</button>
+    </div>
+  </div>
+</div>
+

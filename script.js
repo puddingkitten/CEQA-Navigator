@@ -2,7 +2,7 @@
 // STATE
 // ═══════════════════════════════════════════════════════════
 const answers={}, multiAnswers={};
-let currentSection=0, deterResult=null, userAccount=null;
+let currentSection=0, deterResult=null;
 let selectedPlan='basic', feedbackRating=0, feedbackCats=[];
 let guardTarget=null, hasUnsavedProgress=false;
 
@@ -548,81 +548,14 @@ function toggleConservative(){
 // ═══════════════════════════════════════════════════════════
 // GOOGLE AUTH (demo — replace with real OAuth2 in production)
 // ═══════════════════════════════════════════════════════════
-function signInWithGoogle(){
-  const name=prompt('Demo mode: enter your name to simulate Google sign-in\n\n(In production this opens Google OAuth2 — no password stored here)');
-  if(!name)return;
-  userAccount={name,email:name.toLowerCase().replace(/\s+/,'')+'@demo.com'};
-  renderAuthArea();
-  alert(`Signed in as ${userAccount.name}. You can now save progress.`);
-}
-function renderAuthArea(){
-  const gSvg=`<svg style="width:13px;height:13px;flex-shrink:0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`;
-  const area=document.getElementById('auth-area');
-  if(userAccount){
-    area.innerHTML=`<div class="user-pill" onclick="signOut()"><div class="user-avatar">${userAccount.name[0].toUpperCase()}</div><span>${userAccount.name}</span><span style="opacity:.4;margin-left:3px;font-size:10px">✕</span></div>`;
-  } else {
-    area.innerHTML=`<button class="google-btn" onclick="signInWithGoogle()">${gSvg}Sign in</button>`;
-  }
-}
-function signOut(){userAccount=null;renderAuthArea();}
+// signInWithGoogle: reserved for future use
+// renderAuthArea + signOut: reserved for future use
+;
 
-// ═══════════════════════════════════════════════════════════
-// PAYMENT MODAL
-// ═══════════════════════════════════════════════════════════
-let selectedPlanId='annual';
-function openPayment(){document.getElementById('payment-modal').style.display='flex';}
-function closePayment(){document.getElementById('payment-modal').style.display='none';}
-function openSaveGate(){
-  if(userAccount){saveProgressNow();return;}
-  openPayment();
-}
-function selectPlan(id){
-  selectedPlanId=id;
-  ['monthly','annual'].forEach(p=>{
-    const el=document.getElementById('plan-'+p);
-    if(el) el.classList.toggle('selected',p===id);
-  });
-  const amounts={monthly:'$4.99 / month', annual:'$35.00 / year (was $59.99)'};
-  document.getElementById('pay-amount').textContent=amounts[id]||'';
-}
-function formatCard(el){
-  let v=el.value.replace(/\D/g,'').substring(0,16);
-  el.value=v.replace(/(.{4})/g,'$1 ').trim();
-  const brand=document.getElementById('card-brand');
-  if(v.startsWith('4'))brand.textContent='💳';
-  else if(v.startsWith('5'))brand.textContent='💳';
-  else if(v.startsWith('3'))brand.textContent='💳';
-  else brand.textContent='💳';
-}
-function formatExpiry(el){
-  let v=el.value.replace(/\D/g,'');
-  if(v.length>2)v=v.substring(0,2)+' / '+v.substring(2,4);
-  el.value=v;
-}
-function processPayment(){
-  const email=document.getElementById('pay-email').value.trim();
-  const card=document.getElementById('pay-card').value.replace(/\s/g,'');
-  const expiry=document.getElementById('pay-expiry').value;
-  const cvv=document.getElementById('pay-cvv').value;
-  if(!email||!card||card.length<15||!expiry||!cvv){
-    alert('Please fill in all payment fields.');return;
-  }
-  // In production: call your backend → Stripe API (never send card to your own server — use Stripe.js / Stripe Elements)
-  // The card number is tokenized client-side by Stripe.js before leaving the browser.
-  // This demo simulates success:
-  closePayment();
-  userAccount={name:email.split('@')[0],email};
-  renderAuthArea();
-  saveProgressNow();
-  alert(`✓ Subscribed! Progress saved. Welcome, ${userAccount.name}.\n\n(Demo mode — no real charge was made. In production, Stripe handles all card data securely.)`);
-}
-function saveProgressNow(){
-  const data={answers:{...answers},multiAnswers:Object.fromEntries(Object.entries(multiAnswers).map(([k,v])=>[k,[...v]])),currentSection,ts:Date.now()};
-  localStorage.setItem('ceqa_progress',JSON.stringify(data));
-  const btn=document.getElementById('saveBtn');
-  if(btn){btn.textContent='✓ Saved';setTimeout(()=>{btn.textContent='🔒 Save Progress';},2500);}
-  hasUnsavedProgress=false;
-}
+// processPayment: reserved for future use
+
+// saveProgressNow: reserved for future use
+
 
 // ═══════════════════════════════════════════════════════════
 // FEEDBACK MODAL — anonymous, no login required
@@ -632,53 +565,173 @@ function saveProgressNow(){
 // the rating, category, and text — NO user IP or identifying information logged.
 // The server sends a notification email to the owner. No personal data collected.
 function openFeedback(preRating){
-  document.getElementById('feedback-modal').style.display='flex';
-  feedbackRating=preRating||0;
-  feedbackCats=[];
-  document.getElementById('feedback-text').value='';
-  document.getElementById('feedback-body').style.display='block';
-  // Reset all stars and cats
-  document.querySelectorAll('.star-btn,.cat-btn').forEach(b=>b.classList.remove('lit','selected'));
-  // Pre-fill stars if rating was passed in
+  const modal = document.getElementById('feedback-modal');
+  if(!modal) return;
+  modal.style.display = 'flex';
+
+  // Reset state
+  feedbackRating = preRating || 0;
+  feedbackCats   = [];
+
+  // Clear text fields
+  const nameEl  = document.getElementById('feedback-name');
+  const emailEl = document.getElementById('feedback-email');
+  const textEl  = document.getElementById('feedback-text');
+  if(nameEl)  nameEl.value  = '';
+  if(emailEl) emailEl.value = '';
+  if(textEl)  textEl.value  = '';
+
+  // Restore body to form state (in case success/error screen is showing)
+  const body = document.getElementById('feedback-body');
+  if(body) body.style.display = 'block';
+
+  // Reset star and cat buttons
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('lit'));
+  document.querySelectorAll('.cat-btn').forEach(b  => b.classList.remove('selected'));
+
+  // Pre-light stars if a rating was passed in from the inline quick-rate
   if(preRating){
-    document.querySelectorAll('.star-btn').forEach(b=>{
-      if(parseInt(b.dataset.v)<=preRating) b.classList.add('lit');
+    document.querySelectorAll('.star-btn').forEach(b => {
+      if(parseInt(b.dataset.v) <= preRating) b.classList.add('lit');
     });
   }
 }
 
 function quickRate(n){
-  // Light up inline stars immediately for feedback
-  document.querySelectorAll('.inline-star').forEach((s,i)=>{
-    s.style.color = i<n ? 'var(--gold)' : '#DDD';
+  document.querySelectorAll('.inline-star').forEach((s,i) => {
+    s.style.color = i < n ? 'var(--gold)' : '#DDD';
   });
-  // Brief delay then open modal with that rating pre-selected
-  setTimeout(()=>openFeedback(n), 300);
+  setTimeout(() => openFeedback(n), 300);
 }
-function closeFeedback(){document.getElementById('feedback-modal').style.display='none';}
+
+function closeFeedback(){
+  const modal = document.getElementById('feedback-modal');
+  if(modal) modal.style.display = 'none';
+}
+
 function rateStar(n){
-  feedbackRating=n;
-  document.querySelectorAll('.star-btn').forEach(b=>{b.classList.toggle('lit',parseInt(b.dataset.v)<=n);});
+  feedbackRating = n;
+  document.querySelectorAll('.star-btn').forEach(b => {
+    b.classList.toggle('lit', parseInt(b.dataset.v) <= n);
+  });
 }
-function toggleCat(btn,cat){
+
+function toggleCat(btn, cat){
   btn.classList.toggle('selected');
-  if(feedbackCats.includes(cat))feedbackCats=feedbackCats.filter(c=>c!==cat);
+  if(feedbackCats.includes(cat)) feedbackCats = feedbackCats.filter(c => c !== cat);
   else feedbackCats.push(cat);
 }
+
+// ═══════════════════════════════════════════════════════════
+// FEEDBACK — Formspree endpoint: https://formspree.io/f/xvzleowl
+// Every submission is emailed to the owner and stored in the
+// Formspree dashboard at formspree.io/forms with full timestamps.
+// Fields: name, email, rating, categories, message, page context.
+// ═══════════════════════════════════════════════════════════
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xvzleowl';
+
 function submitFeedback(){
-  const text=document.getElementById('feedback-text').value.trim();
-  const payload={rating:feedbackRating,categories:feedbackCats,comment:text,page:currentSection,timestamp:new Date().toISOString()};
-  // In production, replace with: fetch('/api/feedback',{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json'}})
-  // Using a service like Formspree: fetch('https://formspree.io/f/YOUR_FORM_ID',{method:'POST',body:JSON.stringify(payload),headers:{'Content-Type':'application/json','Accept':'application/json'}})
-  // No identifying user info is sent — only the feedback content above.
-  console.log('Feedback payload (would be sent to server):', payload);
-  document.getElementById('feedback-body').innerHTML=`<div class="feedback-success">
-  <div class="checkmark">✓</div>
-  <div style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:.5rem;font-family:'DM Serif Display',serif">Thank you — this really helps.</div>
-  <p style="font-size:13px;color:var(--text-muted);line-height:1.7;max-width:340px;margin:0 auto">Your feedback was sent anonymously to the developer. Every response is read personally and used to make the tool more accurate, clearer, and more useful for California planners and applicants like you.</p>
-  <p style="font-size:12px;color:var(--text-muted);margin-top:.75rem;opacity:.8">No personal information was collected or transmitted.</p>
-</div>`;
-  setTimeout(closeFeedback,2500);
+  const nameVal  = (document.getElementById('feedback-name')?.value  || '').trim();
+  const emailVal = (document.getElementById('feedback-email')?.value || '').trim();
+  const textVal  = (document.getElementById('feedback-text')?.value  || '').trim();
+
+  // Build human-readable Pacific-time timestamp
+  const now = new Date();
+  const timestamp = now.toLocaleString('en-US', {
+    timeZone:    'America/Los_Angeles',
+    year:        'numeric',
+    month:       'long',
+    day:         'numeric',
+    hour:        '2-digit',
+    minute:      '2-digit',
+    second:      '2-digit',
+    timeZoneName:'short'
+  });
+
+  const starLabels = {
+    1:'★☆☆☆☆ Not useful',
+    2:'★★☆☆☆ Slightly useful',
+    3:'★★★☆☆ Somewhat useful',
+    4:'★★★★☆ Very useful',
+    5:'★★★★★ Extremely useful'
+  };
+  const stepLabels = {
+    0:'Home',1:'Applicant type',2:'Project type',3:'Size',
+    4:'Site conditions',5:'Approvals',6:'Features',
+    7:'Land ownership',8:'Prior CEQA',9:'Results page'
+  };
+
+  // Build payload — Formspree maps these fields into the email body
+  const payload = {
+    name:         nameVal  || '(anonymous)',
+    email:        emailVal || '(not provided)',
+    rating:       starLabels[feedbackRating] || 'No rating given',
+    categories:   feedbackCats.length ? feedbackCats.join(', ') : 'None selected',
+    message:      textVal  || '(no message)',
+    page_context: stepLabels[currentSection] || `Step ${currentSection}`,
+    submitted_at: timestamp,
+    // Formspree uses _subject for the email subject line
+    _subject: `CEQA Feedback — ${starLabels[feedbackRating] || 'No rating'} — ${timestamp}`,
+    // Suppress Formspree's default redirect (we handle the UI ourselves)
+    _next: 'false'
+  };
+
+  // Disable send button while submitting
+  const sendBtn = document.querySelector('#feedback-modal .btn-primary');
+  if(sendBtn){ sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; }
+
+  fetch(FORMSPREE_ENDPOINT, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body:    JSON.stringify(payload)
+  })
+  .then(res => {
+    if(res.ok){
+      // ── SUCCESS ──────────────────────────────────────────
+      document.getElementById('feedback-body').innerHTML = `
+        <div class="feedback-success">
+          <div class="checkmark" style="background:var(--green-light);color:var(--green)">✓</div>
+          <div style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:.5rem;font-family:'DM Serif Display',serif">
+            Thank you — this really helps.
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;max-width:340px;margin:0 auto">
+            Your feedback was received and will be reviewed personally. Every response
+            is used to make this tool more accurate and useful for California planners
+            and applicants like you.
+          </p>
+          ${emailVal ? `<p style="font-size:12px;color:var(--text-muted);margin-top:.6rem">We'll reply to <strong>${emailVal}</strong> if follow-up is needed.</p>` : ''}
+          <p style="font-size:11px;color:var(--text-muted);margin-top:.75rem;opacity:.75">
+            Submitted ${timestamp}
+          </p>
+        </div>`;
+      setTimeout(closeFeedback, 3500);
+    } else {
+      // ── SERVER ERROR ──────────────────────────────────────
+      res.json().then(data => {
+        showFeedbackError(sendBtn, data.error || `Server error (${res.status})`);
+      }).catch(() => {
+        showFeedbackError(sendBtn, `Server error (${res.status})`);
+      });
+    }
+  })
+  .catch(() => {
+    // ── NETWORK ERROR ─────────────────────────────────────
+    showFeedbackError(sendBtn, 'Network error — please check your connection and try again.');
+  });
+}
+
+function showFeedbackError(sendBtn, message){
+  // Re-enable button
+  if(sendBtn){ sendBtn.disabled = false; sendBtn.textContent = 'Try again'; }
+  // Show error banner above the footer without replacing the form
+  const existing = document.getElementById('feedback-error-banner');
+  if(existing) existing.remove();
+  const banner = document.createElement('div');
+  banner.id = 'feedback-error-banner';
+  banner.style.cssText = 'background:var(--red-light);border:1px solid #e5a090;border-radius:8px;padding:.65rem .9rem;font-size:12px;color:var(--red);line-height:1.6;margin-top:.75rem;display:flex;align-items:flex-start;gap:8px';
+  banner.innerHTML = `<span style="flex-shrink:0;font-size:14px">⚠</span><span><strong>Submission failed.</strong> ${message}<br>If this keeps happening, email your feedback directly to <a href="mailto:support@ceqanavigator.com" style="color:var(--red);font-weight:500">support@ceqanavigator.com</a></span>`;
+  const body = document.getElementById('feedback-body');
+  if(body) body.appendChild(banner);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -979,7 +1032,7 @@ const INFO_PAGES={
 <div style="background:#f5f5f0;border-radius:10px;padding:1rem 1.25rem;border:1px solid var(--border)">
   <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:.5rem">Support the developer</div>
   <div style="font-size:13px;color:var(--text-muted);margin-bottom:.5rem">This tool is independently developed and maintained. If you find it useful, consider buying the developer a coffee.</div>
-  <a href="https://buymeacoffee.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--gold);color:var(--navy);border-radius:7px;text-decoration:none;font-size:12px;font-weight:600">Buy a Coffee ↗</a>
+
 </div>
 </div>`
   },
