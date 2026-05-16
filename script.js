@@ -649,11 +649,11 @@ function submitFeedback(){
   });
 
   const starLabels = {
-    1:'★☆☆☆☆ Not useful',
-    2:'★★☆☆☆ Slightly useful',
-    3:'★★★☆☆ Somewhat useful',
-    4:'★★★★☆ Very useful',
-    5:'★★★★★ Extremely useful'
+    1:'1/5 - Not useful',
+    2:'2/5 - Slightly useful',
+    3:'3/5 - Somewhat useful',
+    4:'4/5 - Very useful',
+    5:'5/5 - Extremely useful'
   };
   const stepLabels = {
     0:'Home',1:'Applicant type',2:'Project type',3:'Size',
@@ -661,20 +661,23 @@ function submitFeedback(){
     7:'Land ownership',8:'Prior CEQA',9:'Results page'
   };
 
-  // Build payload — Formspree maps these fields into the email body
+  // Build payload — Formspree maps these fields into the email body.
+  // Rules:
+  //   - Never send email field if blank (Formspree validates email format strictly)
+  //   - Do not include _next (causes validation errors when not a valid URL)
+  //   - _subject sets the email subject line
   const payload = {
-    name:         nameVal  || '(anonymous)',
-    email:        emailVal || '(not provided)',
+    name:         nameVal  || 'Anonymous',
     rating:       starLabels[feedbackRating] || 'No rating given',
     categories:   feedbackCats.length ? feedbackCats.join(', ') : 'None selected',
-    message:      textVal  || '(no message)',
+    message:      textVal  || '(no written comment)',
     page_context: stepLabels[currentSection] || `Step ${currentSection}`,
     submitted_at: timestamp,
-    // Formspree uses _subject for the email subject line
-    _subject: `CEQA Feedback — ${starLabels[feedbackRating] || 'No rating'} — ${timestamp}`,
-    // Suppress Formspree's default redirect (we handle the UI ourselves)
-    _next: 'false'
+    _subject:     `CEQA Feedback — ${starLabels[feedbackRating] || 'No rating'} — ${timestamp}`,
   };
+
+  // Only include email if the user actually entered one — Formspree rejects invalid email values
+  if(emailVal) payload.email = emailVal;
 
   // Disable send button while submitting
   const sendBtn = document.querySelector('#feedback-modal .btn-primary');
