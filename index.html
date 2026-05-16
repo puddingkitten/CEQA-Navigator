@@ -22,7 +22,6 @@
     <button class="btn-header-home" onclick="logoHome(event)"><span class="btn-label">Home</span></button>
     <button class="btn-feedback" onclick="openFeedback()"><span class="btn-label">Share feedback</span></button>
 
-
   </div>
 </header>
 
@@ -49,6 +48,7 @@
       </div>
       <div class="intro-actions">
         <button class="btn btn-gold" onclick="goToSection(1)">Start Free Assessment →</button>
+
       </div>
     </div>
     <!-- OFFICIAL CITATION STRIP -->
@@ -356,6 +356,7 @@
       </div>
       <div style="display:flex;gap:7px;flex-wrap:wrap">
         <button class="btn btn-green" onclick="downloadPDF()" style="font-size:13px;padding:8px 14px">⬇ PDF</button>
+
       </div>
     </div>
 
@@ -520,24 +521,20 @@
 
 <!-- ══════════════ MODALS ══════════════ -->
 
+
 <!-- FEEDBACK MODAL -->
 <div class="modal-overlay" id="feedback-modal" style="display:none" onclick="if(event.target===this)closeFeedback()">
   <div class="modal-box" style="max-width:500px">
-
-    <!-- Header -->
     <div class="modal-header" style="padding-bottom:.65rem">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div>
           <h3 style="font-size:19px;margin-bottom:.25rem">You just helped make this better</h3>
-          <p style="font-size:13px;color:var(--text-muted);line-height:1.6">This tool is built and maintained by one person. Your feedback — good or critical — is read personally and shapes every future update.</p>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6">Built and maintained by one person. Your feedback is read personally and shapes every future update.</p>
         </div>
         <button onclick="closeFeedback()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--text-muted);line-height:1;padding:2px 6px;margin-left:8px;flex-shrink:0">×</button>
       </div>
     </div>
-
-    <!-- Body -->
     <div id="feedback-body" class="modal-body">
-
       <!-- Star rating -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">How useful was this result?</div>
       <div class="feedback-stars" id="star-row" style="margin-bottom:1.1rem">
@@ -547,7 +544,6 @@
         <button class="star-btn" data-v="4" onclick="rateStar(4)" title="Very useful">★</button>
         <button class="star-btn" data-v="5" onclick="rateStar(5)" title="Extremely useful">★</button>
       </div>
-
       <!-- Category chips -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">What's on your mind? <span style="font-weight:400;text-transform:none;letter-spacing:0">(pick any)</span></div>
       <div class="feedback-cat" id="feedback-cats" style="margin-bottom:1rem">
@@ -558,40 +554,29 @@
         <button class="cat-btn" onclick="toggleCat(this,'bug')">Found a bug</button>
         <button class="cat-btn" onclick="toggleCat(this,'great')">This saved me time</button>
       </div>
-
       <!-- Name -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Your name <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></div>
       <input id="feedback-name" type="text" placeholder="e.g. Jane Smith" autocomplete="name"
         style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:14px;outline:none;margin-bottom:.75rem;transition:border-color .18s;color:var(--text);background:#fff"
         onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'">
-
       <!-- Email -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Your email <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional — only if you'd like a reply)</span></div>
       <input id="feedback-email" type="email" placeholder="you@example.com" autocomplete="email"
         style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:14px;outline:none;margin-bottom:.75rem;transition:border-color .18s;color:var(--text);background:#fff"
         onfocus="this.style.borderColor='var(--navy)'" onblur="this.style.borderColor='var(--border)'">
-
       <!-- Message -->
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.35rem">Comments <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional but really appreciated)</span></div>
       <textarea id="feedback-text" class="feedback-textarea"
-        placeholder="Was the pathway recommendation right for your project? Was a question unclear? Did we miss something? Even a few words help enormously — we read every one."
+        placeholder="Was the pathway recommendation right? Was a question unclear? Did we miss something? Even a few words help — we read every one."
         style="min-height:80px"></textarea>
-
-      <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem;line-height:1.6">
-        Sent directly to the developer. Name and email are optional — you can submit completely anonymously.
-      </div>
-
-    </div><!-- /feedback-body -->
-
-    <!-- Footer -->
+      <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem;line-height:1.6">Sent directly to the developer. Name and email are optional — you can submit completely anonymously.</div>
+    </div>
     <div class="modal-footer" style="justify-content:space-between;align-items:center">
       <button class="btn btn-outline" onclick="closeFeedback()" style="font-size:13px">Maybe later</button>
       <button class="btn btn-primary" onclick="submitFeedback()" style="font-size:13px">Send feedback →</button>
     </div>
-
   </div>
 </div>
-
 <!-- UNSAVED PROGRESS GUARD -->
 <div class="modal-overlay" id="guard-modal" style="display:none">
   <div class="modal-box">
@@ -601,12 +586,58 @@
       <p>If you leave now, your answers will be lost and you'll need to start over.</p>
     </div>
     <div class="modal-body">
+
       <p style="font-size:13px;color:var(--text-muted)">You're on step <strong id="guard-step-label"></strong>. Your project type, site information, and answers will be cleared if you navigate away.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="guardStay()">Stay on page</button>
+
       <button class="btn btn-danger" onclick="guardProceed()">Leave anyway</button>
     </div>
   </div>
 </div>
 
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="feedback-modal" style="display:none" onclick="if(event.target===this)closeFeedback()">
+  <div class="modal-box" style="max-width:500px">
+    <div class="modal-header" style="padding-bottom:.65rem">
+      <h3 style="font-size:20px">You just helped make this better</h3>
+      <p style="margin-top:.3rem;line-height:1.6">This tool is built and maintained by one person who genuinely cares about making CEQA accessible to everyone — not just large firms with big budgets. Your feedback, whether glowing or critical, is read personally and shapes every future update. It takes less than 60 seconds and means a lot.</p>
+    </div>
+    <div class="modal-body" id="feedback-body">
+      <!-- Star rating -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">How useful was this result?</div>
+      <div class="feedback-stars" id="star-row" style="margin-bottom:1.1rem">
+        <button class="star-btn" data-v="1" onclick="rateStar(1)" title="Not useful">★</button>
+        <button class="star-btn" data-v="2" onclick="rateStar(2)" title="Slightly useful">★</button>
+        <button class="star-btn" data-v="3" onclick="rateStar(3)" title="Somewhat useful">★</button>
+        <button class="star-btn" data-v="4" onclick="rateStar(4)" title="Very useful">★</button>
+        <button class="star-btn" data-v="5" onclick="rateStar(5)" title="Extremely useful">★</button>
+      </div>
+      <!-- Category chips -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">What's on your mind? <span style="font-weight:400;text-transform:none;letter-spacing:0">(pick any that apply)</span></div>
+      <div class="feedback-cat" id="feedback-cats" style="margin-bottom:1rem">
+        <button class="cat-btn" onclick="toggleCat(this,'accurate')">Result looks accurate</button>
+        <button class="cat-btn" onclick="toggleCat(this,'inaccurate')">Something seems off</button>
+        <button class="cat-btn" onclick="toggleCat(this,'missing')">Missing a question or feature</button>
+        <button class="cat-btn" onclick="toggleCat(this,'confusing')">A question was confusing</button>
+        <button class="cat-btn" onclick="toggleCat(this,'bug')">Found a bug</button>
+        <button class="cat-btn" onclick="toggleCat(this,'great')">This saved me time</button>
+      </div>
+      <!-- Text area -->
+      <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:.5rem">Anything else? <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional but really appreciated)</span></div>
+      <textarea class="feedback-textarea" id="feedback-text" placeholder="Was the pathway recommendation right for your project? Was a question unclear? Did we miss something important? Even a few words help enormously — we read every one." style="min-height:80px"></textarea>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:.5rem;line-height:1.6">
+        Completely anonymous — no account or personal information required. Sent directly to the developer. Thank you for taking the time.
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;align-items:center">
+      <button class="btn btn-outline" onclick="closeFeedback()" style="font-size:13px">Maybe later</button>
+      <button class="btn btn-primary" onclick="submitFeedback()" style="font-size:13px">Send feedback →</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
